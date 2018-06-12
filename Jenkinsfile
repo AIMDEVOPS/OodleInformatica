@@ -30,7 +30,7 @@ node {
     stage ('Code Deploy') {
         echo "Deploying code"
         sh"""
-      cd "${WORKSPACE}/OODLE/target/"
+      cd "${WORKSPACE}/OODLE/"
       ls -ltr
       pwd
       set +e

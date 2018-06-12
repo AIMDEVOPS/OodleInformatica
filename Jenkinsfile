@@ -2,7 +2,6 @@ env.dockerimagename="buildon/buildon:v2"
 def jupiter_host='34.200.55.25'
 def talend_cmd_host='34.237.156.239'
 def talend_cmd_user='admin@company.com'
-def talend_code_dir="${WORKSPACE}/OODLE}"
 node {
     stage ('Code Checkout') {
         checkout scm
@@ -14,8 +13,8 @@ node {
     }
     stage ('Code compile') {
         sh """pwd
-          cd "${talend_code_dir}"
-          mvn org.talend:ci.builder:6.3.1:generate -f pom.xml -Dcommandline.workspace="${talend_code_dir}/" -Dcommandline.host=${talend_cmd_host} -Dcommandline.port=8002 -Dcommandline.user=${talend_cmd_user}
+          cd "${WORKSPACE}/OODLE"
+          mvn org.talend:ci.builder:6.3.1:generate -f pom.xml -Dcommandline.workspace="${WORKSPACE}/OODLE/" -Dcommandline.host=${talend_cmd_host} -Dcommandline.port=8002 -Dcommandline.user=${talend_cmd_user}
           ls -ltr
           """
         sh 'sleep 10s'
@@ -23,15 +22,15 @@ node {
     stage ('Code Build') {
         sh """pwd
           ls -ltr
-          cd "${talend_code_dir}"
-          mvn package -f pom.xml -Dcommandline.workspace="${talend_code_dir}/" -Dcommandline.host=${talend_cmd_host} -Dcommandline.port=8002 -Dcommandline.user=${talend_cmd_user} -DprojectsTargetDirectory="${talend_code_dir}/target"
+          cd "${WORKSPACE}/OODLE"
+          mvn package -f pom.xml -Dcommandline.workspace="${WORKSPACE}/OODLE/" -Dcommandline.host=${talend_cmd_host} -Dcommandline.port=8002 -Dcommandline.user=${talend_cmd_user} -DprojectsTargetDirectory="${WORKSPACE}/OODLE/target"
           """
         sh 'sleep 10s'
     }
     stage ('Code Deploy') {
         echo "Deploying code"
         sh"""
-      cd "${talend_code_dir}/target/"
+      cd "${WORKSPACE}/OODLE/target/"
       ls -ltr
       pwd
       set +e

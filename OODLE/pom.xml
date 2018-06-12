@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>aws.demo</groupId>
 	<artifactId>OODLE</artifactId>
-	<version>SNAPSHOT</version>
+	<version>1.0.3</version>
 	<name>OODLE</name>
 	<packaging>pom</packaging>
 	<description>OODLE ODT Project</description>
@@ -36,8 +36,8 @@
 	</build>
 <distributionManagement>
   <repository>
-    <id>talend-custom-libs-release</id>
-    <url>http://34.237.156.239:8081/nexus/content/repositories/talend-custom-libs-release</url>
+    <id>nexus</id>
+    <url>http://34.237.156.239:8081/nexus/content/repositories/releases/</url>
   </repository>
 </distributionManagement>
 </project>
